@@ -2,11 +2,14 @@ package com.portafolio.backend.portafolio.components;
 
 import com.portafolio.backend.portafolio.models.About;
 import com.portafolio.backend.portafolio.models.Header;
+import com.portafolio.backend.portafolio.models.User;
 import com.portafolio.backend.portafolio.repository.AboutRepository;
 import com.portafolio.backend.portafolio.repository.HeaderRepository;
+import com.portafolio.backend.portafolio.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,6 +19,9 @@ public class SingleDataInitializer implements ApplicationRunner {
 
     @Autowired
     private AboutRepository aboutRepo;
+
+    @Autowired
+    private UserRepository userRepo;
 
 
     @Override
@@ -30,6 +36,14 @@ public class SingleDataInitializer implements ApplicationRunner {
         if(about == null || (about.getSpanish() == null && about.getEnglish() == null)) {
             About initAbout = new About(1, "Test spanish", "Test english");
             aboutRepo.save(initAbout);
+        }
+
+        User user = userRepo.findById(1).orElse(null);
+        if(user == null){
+            BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passEncoder.encode("admin123");
+            User userInit = new User(1, "dionel", encodedPassword);
+            userRepo.save(userInit);
         }
     }
 }
