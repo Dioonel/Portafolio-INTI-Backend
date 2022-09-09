@@ -39,6 +39,13 @@ public class AuthController {
             System.out.println(err);
             return null;
         }
-
     }
+
+//    @PostMapping("/verify")
+//    public boolean verifyToken(@RequestBody String token){
+//        if(!jwtUtil.isTokenExpired(token)){
+//            return true;
+//        }
+//        return false;
+//    }
 }
