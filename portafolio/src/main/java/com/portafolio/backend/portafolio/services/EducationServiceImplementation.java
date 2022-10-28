@@ -15,7 +15,7 @@ public class EducationServiceImplementation implements EducationService{
 
     @Override
     public List<Education> getAllEducation() {
-        return educationRepo.findAll();
+        return educationRepo.findAllByOrderByIdAsc();
     }
 
     @Override

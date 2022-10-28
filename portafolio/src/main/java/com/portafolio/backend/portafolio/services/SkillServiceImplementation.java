@@ -15,7 +15,7 @@ public class SkillServiceImplementation implements SkillService{
 
     @Override
     public List<Skill> getAllSkills() {
-        return skillRepo.findAll();
+        return skillRepo.findAllByOrderByIdAsc();
     }
 
     @Override
